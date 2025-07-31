@@ -15,8 +15,8 @@
 <body>
   <div class="container">
     <h1>{{ task.title }}</h1>
-    <p>{{ task.description }}</p>
-    <p><strong>Created at:</strong> {{ task.created_at }}</p>
+    <p>{{ task.text }}</p>
+    <p><strong>Created at:</strong> {{ task.create_time }}</p>
     <a href="{% url 'task-list' %}" class="btn btn-outline-info">Back to list</a>
   </div>
 </body>
