@@ -7,6 +7,7 @@ The Simple TodoList app written in django.
 !!!Warning!!! Now This app in development level. You can contribute to this app in Github platform.
 
 ## Screenshots
+
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
   <img src="https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-11-13.png" alt="1" width="250">
   <img src="https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-10-02.png" alt="2" width="250">
