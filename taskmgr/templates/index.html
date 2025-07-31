@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      padding: 2rem;
+    }
+    .task-item.done {
+      text-decoration: line-through;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tasks</h1>
+    <ul class="list-group">
+      {% for task in tasks %}
+      <li class="list-group-item bg-dark text-light d-flex justify-content-between align-items-center {% if task.done %}done{% endif %}">
+        <a href="{% url 'task-detail' task.id %}" class="text-light text-decoration-none">{{ task.title }}</a>
+        <form method="POST" action="{% url 'task-toggle' task.id %}">
+          {% csrf_token %}
+          <button class="btn btn-sm {% if task.done %}btn-secondary{% else %}btn-success{% endif %}">{{ task.done|yesno:"Undo,Done" }}</button>
+        </form>
+      </li>
+      {% empty %}
+      <li class="list-group-item text-muted">No tasks available.</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'task-add' %}" class="btn btn-info mt-3">+ Add New Task</a>
+  </div>
+</body>
+</html>
