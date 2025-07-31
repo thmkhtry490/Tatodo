@@ -58,6 +58,7 @@ For run, run here commands for make database migrations and run it:
 ```
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser # for use admin panel
 python manage.py runserver
 ```
 and see in localhost:8000 
