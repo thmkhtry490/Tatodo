@@ -38,7 +38,7 @@ To configure environment variables for this project:
 1. **Copy the sample environment file**:
 
    ```bash
-   cp sample.env .env
+   cp sampleenv .env
    ```
 
 2. **Open `.env` in a text editor** and fill in the required values. Here's what each variable means:
