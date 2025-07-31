@@ -7,11 +7,11 @@ The Simple TodoList app written in django.
 !!!Warning!!! Now This app in development level. You can contribute to this app in Github platform.
 
 ## Screenshots
-[1](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-11-13.png)
+![1](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-11-13.png)
 
-[2](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-10-02.png)
+![2](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-10-02.png)
 
-[3](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-11-37.png)
+![3](https://raw.githubusercontent.com/thmkhtry490/mytodolist/refs/heads/master/Screenshot_2025-07-31_18-11-37.png)
 ## How to install and run it
 
 First you have to clone it(or fork for yourself and next clone it):
