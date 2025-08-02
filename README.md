@@ -6,6 +6,8 @@ The Simple TodoList app written in django.
 
 !!!Warning!!! Now This app in development level. You can contribute to this app in Github platform.
 
+See [dev branch](https://github.com/thmkhtry490/mytodolist/tree/dev)
+
 ## Screenshots
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
