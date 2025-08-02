@@ -6,6 +6,10 @@ The Simple TodoList app written in django.
 
 !!!Warning!!! Now This app in development level. You can contribute to this app in Github platform.
 
+## What's dev branch?
+
+The dev branch is the actively updated development space where I contribute and build new features.
+
 ## Screenshots
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
