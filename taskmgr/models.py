@@ -1,5 +1,5 @@
 from django.db import models
-
+# It's task model is save in database
 class Task(models.Model):
     title = models.CharField(max_length=800)
     text = models.TextField(blank=True, null=True,max_length=1800)

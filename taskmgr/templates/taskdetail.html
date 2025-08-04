@@ -19,6 +19,26 @@
         <i class="bi bi-calendar3"></i> 
         <span>Created at: {{ task.create_time|date:"Y/m/d H:i" }}</span>
       </div>
+      <hr>
+      <div style="width: 150px;margin-left: auto;margin-right: auto;">
+        <form method="POST" action="{% url 'task-toggle' task.id %}" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-icon btn-outline-success {% if task.done %}btn-outline-secondary{% endif %}" title="Toggle Done">
+          <i class="bi {% if task.done %}bi-arrow-counterclockwise{% else %}bi-check-circle{% endif %}"></i>
+          </button>
+        </form>
+        <form method="POST" action="{% url 'task-delete' task.id %}" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-icon btn-outline-danger" title="Delete Task">
+          <i class="bi bi-trash"></i>
+          </button>
+        </form>
+        <form method="GET" action="{% url 'task-edit' task.id %}" class="d-inline">
+          <button type="submit" class="btn btn-icon btn-outline-primary" title="Edit Task">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </form>
+      </div>
       <div class="mt-4 text-end">
         <a href="{% url 'task-list' %}" class="btn-back">
           <i class="bi bi-arrow-left"></i> Back to List
