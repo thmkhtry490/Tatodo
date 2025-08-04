@@ -1,0 +1,65 @@
+ body {
+      background-color: #121212;
+      color: #e0e0e0;
+      padding: 3rem 2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+      padding: 2.5rem 2rem;
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    .task-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: #f0f0f0;
+    }
+    .task-text {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      white-space: pre-line;
+      color: #d4d4d4;
+      line-height: 1.6;
+    }
+    .task-text em {
+      font-style: italic;
+      color: #999;
+    }
+    .meta {
+      font-size: 1rem;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .meta i {
+      font-size: 1.2rem;
+      color: #6bcfff;
+    }
+    .btn-back {
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 50px;
+      padding: 0.6rem 1.8rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-back:hover, .btn-back:focus {
+      background-color: #0a58ca;
+      color: #e0e0e0;
+      text-decoration: none;
+    }
+  .app-footer {
+    font-size: 0.85rem;
+    color: #888;
+    padding: 2rem 0 0;
+    border-top: 1px solid #2a2a2a;
+  }
