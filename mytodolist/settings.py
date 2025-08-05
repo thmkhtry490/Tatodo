@@ -53,6 +53,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mytodolist.urls'
 
+SIGNUP_ENABLE=config("SIGNUP_ENABLE")
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

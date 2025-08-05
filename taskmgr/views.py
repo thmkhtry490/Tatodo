@@ -2,8 +2,9 @@ from django.views.generic import ListView,DetailView
 from taskmgr.models import Task
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-
-from .forms import TaskAdd
+from mytodolist.settings import SIGNUP_ENABLE
+from .forms import TaskAdd,SignUp
+from django.core.exceptions import PermissionDenied
 
 class TaskListView(ListView): # Here use generic list view
     model = Task
@@ -50,3 +51,16 @@ def task_ed(request,pk):
         form = TaskAdd(instance=task)
 
     return render(request, "taskedit.html", {"form": form,"task":task})
+
+
+def sign_up(request):
+    if request.method == POST and  SIGNUP_ENABLE :
+        form = SignUp(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login') 
+    elif not SIGNUP_ENABLE:
+        raise PermissionDenied("You can't signup because admin is closed it.")
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
