@@ -1,4 +1,4 @@
-# mytodolist
+# Tatodo
 
 The Simple TodoList app written in django.
 
