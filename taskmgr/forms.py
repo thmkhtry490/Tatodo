@@ -11,4 +11,4 @@ class TaskAdd(forms.ModelForm):
 class SignUp(UserCreationForm):
     class Meta:
         model = User
-        fields = ("firstname","lastname","username","password")
+        fields = ("first_name","last_name","username")

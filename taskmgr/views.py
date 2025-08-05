@@ -5,18 +5,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from mytodolist.settings import SIGNUP_ENABLE
 from .forms import TaskAdd,SignUp
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class TaskListView(ListView): # Here use generic list view
+class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
     context_object_name = "tasks" # Set name of contexts  for send to templates
     template_name = 'index.html'
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'taskdetail.html'
     context_object_name = 'task'
     pk_url_kwarg = 'pk' # Set name of id for send to templates
 
+@login_required(login_url='login')
 def task_add(request):
     if request.method == "POST": # check form send with post method
         form = TaskAdd(request.POST) # save TaskAdd form in variable
@@ -28,17 +31,20 @@ def task_add(request):
 
     return render(request, "taskform.html", {"form": form})
 
+@login_required(login_url='login')
 def task_toggle(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.done = not task.done #swap in task status
     task.save()
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required(login_url='login')
 def task_del(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
     return redirect('task-list')
 
+@login_required(login_url='login')
 def task_ed(request,pk):
     task = get_object_or_404(Task,pk=pk)
     if request.method == "POST":
@@ -54,13 +60,15 @@ def task_ed(request,pk):
 
 
 def signup(request):
-    if request.method == POST and  SIGNUP_ENABLE :
+    if request.method == "POST" and  SIGNUP_ENABLE and not request.user.is_authenticated:
         form = SignUp(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login') 
     elif not SIGNUP_ENABLE:
         raise PermissionDenied("You can't signup because admin is closed it.")
+    elif request.user.is_authenticated:
+        raise PermissionDenied("You're logged in.")
     else:
-        form = SignUpForm()
+        form = SignUp()
     return render(request, 'signup.html', {'form': form})
