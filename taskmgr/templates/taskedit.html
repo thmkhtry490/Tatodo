@@ -1,15 +1,10 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Add Task</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="{% static 'style-taskform.css' %}">
-  <link rel="stylesheet" href="{% static 'style-header.css' %}">
-</head>
-<body>
-  {% include "header.html" %}
+
+{% block title %}Edit {{task}}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'style-taskform.css' %}">{% endblock %}
+{% block content %}
+
   <div class="card">
     <h1>Edit {{task}}</h1>
     <form method="POST" action="">
@@ -33,7 +28,4 @@
       <a href="{% url 'task-list' %}" class="btn btn-secondary">Cancel</a>
     </form>
   </div>
-  {% include "footer.html" %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}
