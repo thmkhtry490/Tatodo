@@ -12,19 +12,25 @@ class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
     context_object_name = "tasks" # Set name of contexts  for send to templates
     template_name = 'index.html'
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'taskdetail.html'
     context_object_name = 'task'
     pk_url_kwarg = 'pk' # Set name of id for send to templates
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 @login_required(login_url='login')
 def task_add(request):
     if request.method == "POST": # check form send with post method
         form = TaskAdd(request.POST) # save TaskAdd form in variable
         if form.is_valid():
-            form.save() 
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
             return HttpResponseRedirect("/") #Go to homepage past of send form
     else:
         form = TaskAdd()
