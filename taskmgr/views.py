@@ -53,7 +53,7 @@ def task_ed(request,pk):
     return render(request, "taskedit.html", {"form": form,"task":task})
 
 
-def sign_up(request):
+def signup(request):
     if request.method == POST and  SIGNUP_ENABLE :
         form = SignUp(request.POST)
         if form.is_valid():
