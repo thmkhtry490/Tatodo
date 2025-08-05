@@ -10,10 +10,8 @@ See [dev branch](https://github.com/thmkhtry490/mytodolist/tree/dev)
 
 ## Screenshots
 
-<div style="display: flex; gap: 10px; flex-wrap: wrap;">
   <img src="https://raw.githubusercontent.com/thmkhtry490/Tatodo/refs/heads/main/Screenshot_2025-08-05_23-49-01.png" alt="1" width="250">
 
-</div>
 
 ## How to install and run it
 
