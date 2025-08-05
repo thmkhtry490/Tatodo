@@ -3,10 +3,12 @@ from taskmgr.models import Task
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from mytodolist.settings import SIGNUP_ENABLE
-from .forms import TaskAdd,SignUp
+from .forms import TaskAdd,SignUp,ProfileSettings
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
@@ -78,3 +80,34 @@ def signup(request):
     else:
         form = SignUp()
     return render(request, 'signup.html', {'form': form})
+
+@login_required
+def profile_settings(request):
+    user = request.user
+    if request.method == "POST":
+        user_form = ProfileSettings(request.POST, instance=user)
+        pwd_form = PasswordChangeForm(user, request.POST)
+        if 'save_info' in request.POST and user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Your profile was updated.')
+            return redirect('user-settings')
+        elif 'change_password' in request.POST and pwd_form.is_valid():
+            pwd_form.save()
+            update_session_auth_hash(request, pwd_form.user)
+            messages.success(request, 'Password changed successfully.')
+            return redirect('user-settings')
+    else:
+            user_form = ProfileSettings(instance=user)
+            pwd_form = PasswordChangeForm(user)
+
+    return render(request, 'profile-settings.html', {
+        'user_form': user_form,
+        'pwd_form': pwd_form
+    })
+            
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('login')
+    return render(request, 'delete-account.html')

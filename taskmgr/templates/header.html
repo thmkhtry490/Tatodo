@@ -10,7 +10,7 @@
             👤 {{ user.username }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-            <li><a class="dropdown-item disabled" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile-settings' %}">Profile Settings</a></li>
             <li>
               <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
