@@ -1,105 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Task List</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    html{
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-    }
-    body {
-      padding: 2rem;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #121212;
-        color: #e0e0e0;
-        font-family: 'Segoe UI', sans-serif;
-        display: flex;
-        flex-direction: column;
-    }
-    .container{
-      padding: 2rem;  
-      flex: 1 0 auto;
-    }
-    .card {
-      background-color: #1e1e1e;
-      border: none;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      margin-bottom: 1rem;
-    }
-    .task-title {
-      font-size: 1.2rem;
-      font-weight: 500;
-    }
-    .task-done .task-title {
-      text-decoration: line-through;
-      color: #888;
-    }
-    .btn-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      padding: 0;
-      border-radius: 50%;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .no-tasks {
-      text-align: center;
-      color: #888;
-      padding: 2rem;  
-      flex: 1 0 auto;
-    }
-  .app-footer {
-    font-size: 0.85rem;
-    color: #888;
-    padding: 2rem 0 0;
-    border-top: 1px solid #2a2a2a;
-    flex-shrink: 0;
-    font-size: 0.85rem;
-    color: #bbb;
-    padding: 1.5rem 0 0;
-    border-top: 1px solid #2a2a2a;
-    text-align: center;
-  }
-</style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="mb-4">Task List</h1>
+{% extends "base.html" %}
+{% load static %}
 
-    {% for task in tasks %}
-    <div class="card task-item {% if task.done %}task-done{% endif %}">
-      <div class="card-body d-flex justify-content-between align-items-center">
-        <a href="{% url 'task-detail' task.id %}" class="task-title text-decoration-none text-light flex-grow-1">
-          {{ task.title }}
-        </a>
-        <form method="POST" action="{% url 'task-toggle' task.id %}" class="me-2">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-icon btn-outline-success {% if task.done %}btn-outline-secondary{% endif %}" title="Toggle Done">
-            <i class="bi {% if task.done %}bi-arrow-counterclockwise{% else %}bi-check-circle{% endif %}"></i>
-          </button>
-        </form>
-        <form method="POST" action="{% url 'task-delete' task.id %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-icon btn-outline-danger" title="Delete Task">
-            <i class="bi bi-trash"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    {% empty %}
+{% block title %}Task List{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'style-index.css' %}">{% endblock %}
+{% block content %}
+{% for task in tasks %}
+<div class="card task-item {% if task.done %}task-done{% endif %}">
+  <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <span class="task-title flex-grow-1">
+      {{ task.title }}
+    </span>
+    <a href="{% url 'task-detail' task.id %}" class="btn btn-info btn-icon" title="View Details">
+      <i class="bi bi-info-circle"></i>
+    </a>
+    <form method="POST" action="{% url 'task-toggle' task.id %}" class="d-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-icon btn-outline-success {% if task.done %}btn-outline-secondary{% endif %}" title="Toggle Done">
+        <i class="bi {% if task.done %}bi-arrow-counterclockwise{% else %}bi-check-circle{% endif %}"></i>
+      </button>
+    </form>
+    <form method="POST" action="{% url 'task-delete' task.id %}" class="d-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-icon btn-outline-danger" title="Delete Task">
+        <i class="bi bi-trash"></i>
+      </button>
+    </form>
+    <form method="GET" action="{% url 'task-edit' task.id %}" class="d-inline">
+      <button type="submit" class="btn btn-icon btn-outline-primary" title="Edit Task">
+        <i class="bi bi-pencil"></i>
+      </button>
+    </form>
+  </div>
+</div>
+{% empty %}
+
     <div class="no-tasks">
       <i class="bi bi-emoji-frown" style="font-size: 2rem;"></i>
       <p>No tasks available.</p>
@@ -112,8 +46,4 @@
       </a>
     </div>
   </div>
-  <footer class="app-footer text-center text-muted mt-5">
-    <small style="color:white;">&copy; {% now "Y" %} • {{ version }} Release • Built by Taha Mokhtary HashemAbad</small>
-  </footer>
-</body>
-</html>
+{% endblock %}

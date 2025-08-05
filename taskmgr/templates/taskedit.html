@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Add new Task{% endblock %}
+{% block title %}Edit {{task}}{% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static 'style-taskform.css' %}">{% endblock %}
 {% block content %}
 
   <div class="card">
-    <h1>Add New Task</h1>
-    <form method="POST" action="{% url 'task-add' %}">
+    <h1>Edit {{task}}</h1>
+    <form method="POST" action="">
       {% csrf_token %}
       {{ form.non_field_errors }}
       
