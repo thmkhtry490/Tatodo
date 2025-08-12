@@ -26,19 +26,6 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
 
-@login_required(login_url='login')
-def task_add(request):
-    if request.method == "POST": # check form send with post method
-        form = TaskAdd(request.POST) # save TaskAdd form in variable
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.user = request.user
-            task.save()
-            return HttpResponseRedirect("/") #Go to homepage past of send form
-    else:
-        form = TaskAdd()
-
-    return render(request, "taskform.html", {"form": form})
 class TaskAddView(LoginRequiredMixin, FormView):
     template_name = "taskform.html"
     form_class = TaskAdd
