@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.generic.edit import FormView
 
 class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
@@ -38,6 +39,15 @@ def task_add(request):
         form = TaskAdd()
 
     return render(request, "taskform.html", {"form": form})
+class TaskAddView(LoginRequiredMixin, FormView):
+    template_name = "taskform.html"
+    form_class = TaskAdd
+    success_url = "/"
+    def form_valid(self,form):
+        task = form.save(commit=False)
+        task.user = self.request.user
+        task.save()
+        return super().form_valid(form) 
 
 @login_required(login_url='login')
 def task_toggle(request, pk):
