@@ -68,18 +68,22 @@ def task_ed(request,pk):
 
 
 def signup(request):
-    if request.method == "POST" and  SIGNUP_ENABLE and not request.user.is_authenticated:
+    if not SIGNUP_ENABLE:
+        raise PermissionDenied("You can't signup because admin has closed it.")
+
+    if request.user.is_authenticated:
+        raise PermissionDenied("You're logged in.")
+
+    if request.method == "POST":
         form = SignUp(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login') 
-    elif not SIGNUP_ENABLE:
-        raise PermissionDenied("You can't signup because admin is closed it.")
-    elif request.user.is_authenticated:
-        raise PermissionDenied("You're logged in.")
+            return redirect('login')
     else:
         form = SignUp()
+
     return render(request, 'signup.html', {'form': form})
+
 
 @login_required
 def profile_settings(request):
