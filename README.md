@@ -18,8 +18,8 @@ See [dev branch](https://github.com/thmkhtry490/mytodolist/tree/dev)
 First you have to clone it(or fork for yourself and next clone it):
 
 ```
-git clone git@github.com:thmkhtry490/mytodolist # If you fork it swap thmkhtry490 to your username
-cd 
+git clone git@github.com:thmkhtry490/Tatodo # If you fork it swap thmkhtry490 to your username
+cd Tatodo
 ```
 For next, you can create venv(you can see more in [here](https://docs.python.org/3/library/venv.html) ):
 
