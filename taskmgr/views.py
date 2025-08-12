@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from mytodolist.settings import SIGNUP_ENABLE
 from .forms import TaskAdd,SignUp,ProfileSettings
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -16,6 +15,9 @@ from django.urls import reverse_lazy
 
 
 class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
+    """
+    It's home page view past login shows list of User tasks.
+    """
     model = Task
     context_object_name = "tasks" # Set name of contexts  for send to templates
     template_name = 'index.html'
@@ -23,6 +25,9 @@ class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
         return Task.objects.filter(user=self.request.user)
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
+    """
+    It's task detail page shows information of a task.
+    """
     model = Task
     template_name = 'taskdetail.html'
     context_object_name = 'task'
@@ -31,6 +36,9 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         return Task.objects.filter(user=self.request.user)
 
 class TaskAddView(LoginRequiredMixin, FormView):
+    """
+    It's add task page view
+    """
     template_name = "taskform.html"
     form_class = TaskAdd
     success_url = "/"
@@ -41,6 +49,12 @@ class TaskAddView(LoginRequiredMixin, FormView):
         return super().form_valid(form) 
 
 class ProfileSettingsView(LoginRequiredMixin, View):
+    """
+    It's Proflies setting View  has 2 forms:
+    1. Edit Information of account
+    2. Password Change form
+    and has delete account button
+    """
     template_name = 'profile-settings.html'
 
     def get(self, request, *args, **kwargs):
@@ -80,10 +94,10 @@ class SignUpView(FormView):
         if request.user.is_authenticated:
             raise PermissionDenied("You're logged in.")
         return super().dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
 class DeleteAccount(LoginRequiredMixin,DeleteView):
     model = User
     success_url = "/"

@@ -12,7 +12,7 @@
     <form method="post" class="d-flex justify-content-center gap-3 mt-4">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Yes, delete {{task}}</button>
-      <a href="{% url 'profile-settings' %}" class="btn btn-secondary">Cancel</a>
+      <a href="{% url 'task-list' %}" class="btn btn-secondary">Cancel</a>
     </form>
 
 

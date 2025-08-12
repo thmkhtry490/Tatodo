@@ -4,15 +4,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class TaskAdd(forms.ModelForm):
+    """
+    add and eddit task form
+    """
     class Meta:
         model = Task
         fields = ["title",'text']
 
 class SignUp(UserCreationForm):
+    """
+    signup form for tatodo
+    """
     class Meta:
         model = User
         fields = ("first_name","last_name","username")
 class ProfileSettings(forms.ModelForm):
+    """
+    accounts settings form
+    """
     class Meta:
         model = User
         fields = ["first_name","last_name","username"]
