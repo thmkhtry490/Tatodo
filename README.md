@@ -13,7 +13,7 @@ See [dev branch](https://github.com/thmkhtry490/mytodolist/tree/dev)
   <img src="https://raw.githubusercontent.com/thmkhtry490/Tatodo/refs/heads/main/Screenshot_2025-08-05_23-49-01.png" alt="1" width="250">
 
 
-## How to install and run it
+## How to install and run it (dev)
 
 First you have to clone it(or fork for yourself and next clone it):
 
@@ -71,3 +71,6 @@ and see in localhost:8000
 
 
 Do your works funny!
+## For Production
+
+This section is scheduled for release 0.03 soon.
