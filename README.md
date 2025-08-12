@@ -56,7 +56,7 @@ To configure environment variables for this project:
    | `DEBUG`         | Set to `True` for development or `False` for production.                                                                                                            |
    | `ALLOWED_HOSTS` | A comma-separated list of allowed hostnames, e.g., `127.0.0.1,localhost`                                                                                            |
    |`SIGNUP_ENABLE`  | Enable Signup for another user,`True` or `False`
-           |
+
 
 4. **Save the file**, and make sure it's **not committed to version control** (already ignored in `.gitignore`).
 
