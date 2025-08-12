@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mytodolist.urls'
 
-SIGNUP_ENABLE=config("SIGNUP_ENABLE")
+SIGNUP_ENABLE=config("SIGNUP_ENABLE",cast=bool)
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'

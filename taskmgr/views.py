@@ -1,6 +1,5 @@
 from django.views.generic import ListView,DetailView
 from taskmgr.models import Task
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from mytodolist.settings import SIGNUP_ENABLE
 from .forms import TaskAdd,SignUp,ProfileSettings
@@ -9,7 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.views.generic.edit import FormView
+from django.contrib.auth.models import User
+from django.views.generic.edit import FormView,DeleteView,UpdateView
+from django.views import View
+from django.contrib import messages
+from django.urls import reverse_lazy
+
 
 class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
@@ -36,79 +40,81 @@ class TaskAddView(LoginRequiredMixin, FormView):
         task.save()
         return super().form_valid(form) 
 
-@login_required(login_url='login')
-def task_toggle(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.done = not task.done #swap in task status
-    task.save()
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+class ProfileSettingsView(LoginRequiredMixin, View):
+    template_name = 'profile-settings.html'
 
-@login_required(login_url='login')
-def task_del(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.delete()
-    return redirect('task-list')
+    def get(self, request, *args, **kwargs):
+        user_form = ProfileSettings(instance=request.user)
+        pwd_form = PasswordChangeForm(request.user)
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'pwd_form': pwd_form
+        })
 
-@login_required(login_url='login')
-def task_ed(request,pk):
-    task = get_object_or_404(Task,pk=pk)
-    if request.method == "POST":
-        #instance shows before your changes task in edit form
-        form = TaskAdd(request.POST,instance=task) 
-        if form.is_valid():
-            form.save()
-            return redirect("task-detail", pk=pk) # go to task detail page past of edit and save
-    else:
-        form = TaskAdd(instance=task)
+    def post(self, request, *args, **kwargs):
+        user_form = ProfileSettings(request.POST, instance=request.user)
+        pwd_form = PasswordChangeForm(request.user, request.POST)
 
-    return render(request, "taskedit.html", {"form": form,"task":task})
-
-
-def signup(request):
-    if not SIGNUP_ENABLE:
-        raise PermissionDenied("You can't signup because admin has closed it.")
-
-    if request.user.is_authenticated:
-        raise PermissionDenied("You're logged in.")
-
-    if request.method == "POST":
-        form = SignUp(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = SignUp()
-
-    return render(request, 'signup.html', {'form': form})
-
-
-@login_required
-def profile_settings(request):
-    user = request.user
-    if request.method == "POST":
-        user_form = ProfileSettings(request.POST, instance=user)
-        pwd_form = PasswordChangeForm(user, request.POST)
         if 'save_info' in request.POST and user_form.is_valid():
             user_form.save()
             messages.success(request, 'Your profile was updated.')
-            return redirect('user-settings')
+            return redirect('profile-settings')
+
         elif 'change_password' in request.POST and pwd_form.is_valid():
             pwd_form.save()
             update_session_auth_hash(request, pwd_form.user)
             messages.success(request, 'Password changed successfully.')
-            return redirect('user-settings')
-    else:
-            user_form = ProfileSettings(instance=user)
-            pwd_form = PasswordChangeForm(user)
+            return redirect('profile-settings')
 
-    return render(request, 'profile-settings.html', {
-        'user_form': user_form,
-        'pwd_form': pwd_form
-    })
-            
-@login_required
-def delete_account(request):
-    if request.method == 'POST':
-        request.user.delete()
-        return redirect('login')
-    return render(request, 'delete-account.html')
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'pwd_form': pwd_form
+        })
+class SignUpView(FormView):
+    template_name = "signup.html"
+    form_class = SignUp
+    success_url = "/"
+    def dispatch(self, request, *args, **kwargs):
+        if not SIGNUP_ENABLE:
+            raise PermissionDenied("You can't signup because admin has closed it.")
+        if request.user.is_authenticated:
+            raise PermissionDenied("You're logged in.")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+class DeleteAccount(LoginRequiredMixin,DeleteView):
+    model = User
+    success_url = "/"
+    template_name = "delete-account.html"  
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+
+class TaskToggleView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.done = not task.done
+        task.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    template_name = "taskdel.html"
+    success_url = "/"
+    login_url = 'login'
+
+
+class TaskEditView(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskAdd
+    template_name = "taskedit.html"
+    login_url = 'login'
+
+    def get_success_url(self):
+        return reverse_lazy("task-detail", kwargs={"pk": self.object.pk})
+

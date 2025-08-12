@@ -7,7 +7,7 @@
       {% if user.is_authenticated %}
         <div class="dropdown">
           <button class="btn btn-outline-light rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            👤 {{ user.username }}
+            👤 {{ user.first_name }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
             <li><a class="dropdown-item" href="{% url 'profile-settings' %}">Profile Settings</a></li>
