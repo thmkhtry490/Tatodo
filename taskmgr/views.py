@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.generic.edit import FormView
+from django.views.generic.edit import FormView
 
 class TaskListView(LoginRequiredMixin, ListView): # Here use generic list view
     model = Task
