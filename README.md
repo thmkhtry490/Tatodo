@@ -55,8 +55,10 @@ To configure environment variables for this project:
    | `SECRET_KEY`    | Your Django secret key. You can generate one using:<br>`python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` |
    | `DEBUG`         | Set to `True` for development or `False` for production.                                                                                                            |
    | `ALLOWED_HOSTS` | A comma-separated list of allowed hostnames, e.g., `127.0.0.1,localhost`                                                                                            |
+   |`SIGNUP_ENABLE`  | Enable Signup for another user,`True` or `False`
+           |
 
-3. **Save the file**, and make sure it's **not committed to version control** (already ignored in `.gitignore`).
+4. **Save the file**, and make sure it's **not committed to version control** (already ignored in `.gitignore`).
 
 ### run and see it
 
