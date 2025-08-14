@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from taskmgr import urls
+import apis
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include(urls))
+    path('',include(urls)),
+    path('api/',include('apis.urls'))
 ]
