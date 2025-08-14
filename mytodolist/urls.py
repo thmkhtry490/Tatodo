@@ -22,5 +22,5 @@ import apis
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(urls)),
-    path('api/',include(apis.urls))
+    path('api/',include('apis.urls'))
 ]
