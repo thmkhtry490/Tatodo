@@ -85,6 +85,6 @@ Install `docker` and `docker-compose-v2` and run this command :
 for next run createsuperuser command:
 
 ```
-# docker compose run tatodo-container python manage.py createsuperuser
+# docker compose run mytodolist-web-1 python manage.py createsuperuser
 ```
 See it in `localhost:8000` and use it !
