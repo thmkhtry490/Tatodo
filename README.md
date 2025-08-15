@@ -35,7 +35,7 @@ pip install -r requirments.txt
 For next, You Must Create your secret key:
 
 ```
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+python -c "from secrets import token_urlsafe; print(token_urlsafe(50))"
 ```
 
 ### 📄 Environment Setup Guide
