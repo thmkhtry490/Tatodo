@@ -73,7 +73,7 @@ and see in localhost:8000
 
 
 Do your works funny!
-## For Production
+## Install For Production
 
 First you must config .env file and set parameters for your work. 
 
@@ -88,3 +88,11 @@ for next run createsuperuser command:
 # docker compose run mytodolist-web-1 python manage.py createsuperuser
 ```
 See it in `localhost:8000` and use it !
+
+## Create token for api
+
+You can use this command for create api token:
+
+```
+python manage.py drf_create_token <username>
+```
