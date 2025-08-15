@@ -1,4 +1,4 @@
-Release v0.01:
+Release v0.01 alpha:
 
 - Add, edit, and delete tasks
 - Mark tasks as completed or not completed
@@ -6,7 +6,7 @@ Release v0.01:
 - Responsive UI with Bootstrap 5
 - Two simple lists: completed and pending tasks
 
-Release v0.02:
+Release v0.02 alpha:
 
 - Renamed project to **Tatodo**
 - Added **task editing** functionality
@@ -14,3 +14,9 @@ Release v0.02:
 - Added **user settings** page for editing profile info and deleting accounts
 - Fixed several legacy bugs
 - ⚙ Docker support for production **(coming soon)**
+
+Release v0.05 alpha:
+
+- Fix signup bug
+- Add API Support with token in /api/v1
+- Docker compose support for production
