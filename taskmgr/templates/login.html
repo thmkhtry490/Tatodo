@@ -12,7 +12,7 @@
     <h1>Login Tatodo</h1>
     <form method="POST" >
       {% csrf_token %}
-      {{ form.non_field_errors }}
+      <div style="color: white;"> {{ form.non_field_errors }}</div>
       
       {% for field in form %}
         <div class="mb-3">
@@ -28,6 +28,5 @@
       <a href="{% url 'signup' %}" class="btn btn-secondary">Signup</a>
     </form>
   </div>
-  {% include "footer.html" %}
 </body>
 </html>

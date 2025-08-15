@@ -19,7 +19,7 @@
         <i class="bi {% if task.done %}bi-arrow-counterclockwise{% else %}bi-check-circle{% endif %}"></i>
       </button>
     </form>
-    <form method="POST" action="{% url 'task-delete' task.id %}" class="d-inline">
+    <form method="GET" action="{% url 'task-delete' task.id %}" class="d-inline">
       {% csrf_token %}
       <button type="submit" class="btn btn-icon btn-outline-danger" title="Delete Task">
         <i class="bi bi-trash"></i>
