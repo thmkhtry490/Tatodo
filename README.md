@@ -75,4 +75,16 @@ and see in localhost:8000
 Do your works funny!
 ## For Production
 
-This section is scheduled for release 0.03 soon.
+First you must config .env file and set parameters for your work. 
+
+Install `docker` and `docker-compose-v2` and run this command :
+
+```
+# docker compose up -d --build
+```
+for next run migration db command:
+
+```
+# docker compose run tatodo-container python manage.py migrate
+```
+See it in `localhost:8000` and use it !
