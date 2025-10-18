@@ -89,10 +89,3 @@ for next run createsuperuser command:
 ```
 See it in `localhost:8000` and use it !
 
-## Create token for api
-
-You can use this command for create api token:
-
-```
-python manage.py drf_create_token <username>
-```
